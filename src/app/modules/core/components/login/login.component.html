@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-error *ngIf="errorMessage">Invalid email or password!</mat-error>
+    <form
+      id="login-form"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+    >
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" id="email" />
+        <mat-error *ngIf="loginForm.get('email')?.errors?.['required']"
+          >Email is required</mat-error
+        >
+        <mat-error *ngIf="loginForm.get('email')?.errors?.['pattern']"
+          >Email address is invalid. Please enter a valid email
+          address!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.errors?.['required']"
+          >Password is required</mat-error
+        >
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="justify-between">
+    <button
+      type="submit"
+      form="login-form"
+      mat-raised-button
+      [disabled]="loginForm.invalid"
+      color="primary"
+    >
+      Login
+    </button>
+
+    <button
+      form="login-form"
+      mat-flat-button
+      (click)="signUp()"
+    >
+      Signup
+  </button>
+  </mat-card-actions>
+</mat-card>

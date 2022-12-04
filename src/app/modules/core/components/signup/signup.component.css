@@ -1,0 +1,11 @@
+:host {
+  @apply flex;
+  @apply h-full;
+  @apply justify-center;
+  @apply items-center;
+}
+
+.mat-mdc-form-field {
+  @apply flex;
+  @apply w-[28rem];
+}

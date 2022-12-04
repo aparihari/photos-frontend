@@ -1,0 +1,75 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Signup</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-error *ngIf="errorMessage">Invalid email or password!</mat-error>
+    <form
+      id="signup-form"
+      [formGroup]="signupForm"
+      (ngSubmit)="signup()"
+    >
+
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" id="firstName" />
+      <mat-error *ngIf="signupForm.get('firstName')?.errors?.['required']"
+        >First Name is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" id="lastName" />
+      <mat-error *ngIf="signupForm.get('lastName')?.errors?.['required']"
+        >Last Name is required</mat-error
+      >
+    </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" id="email" />
+        <mat-error *ngIf="signupForm.get('email')?.errors?.['required']"
+          >Email is required</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('email')?.errors?.['pattern']"
+          >Email address is invalid. Please enter a valid email
+          address!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="signupForm.get('password')?.errors?.['required']"
+          >Password is required</mat-error
+        >
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      type="submit"
+      form="signup-form"
+      mat-raised-button
+      [disabled]="signupForm.invalid"
+      color="primary"
+    >
+      Signup
+    </button>
+  </mat-card-actions>
+</mat-card>

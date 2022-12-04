@@ -1,0 +1,33 @@
+<!-- toolbar -->
+<mat-toolbar class="mb-4 justify-between" color="primary">
+  <span>Welcome {{ (user$ | async)?.firstName }}!</span>
+  <span><button (click)="logout()">Logout</button></span>
+</mat-toolbar>
+
+<mat-form-field>
+  <mat-label *ngIf="photo; else newFile">{{ photo.name }}</mat-label>
+  <ng-template #newFile>
+    <mat-label>Choose file</mat-label>
+  </ng-template>
+  <input matInput hidden (click)="fileInput.click()" />
+  <button mat-icon-button matSuffix (click)="fileInput.click()">
+    <mat-icon color="primary">attach_file</mat-icon>
+  </button>
+  <input hidden (change)="upload($event)" #fileInput type="file" id="file" />
+</mat-form-field>
+
+<div class="image-grid">
+  <div class="image-container relative" *ngFor="let photo of photos">
+    <img src="{{ photo.data }}" alt="" />
+    <div class="absolute top-[20px] right-[20px]">
+      <button
+        mat-icon-button
+        aria-label="Delete Image"
+        color="accent"
+        (click)="delete(photo)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
